@@ -10,36 +10,32 @@
  */
 class Solution {
 public:
-   void del(ListNode* &head,int &n){
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head==NULL){
+            return head;
+        }
         ListNode* curr=head;
             int size=0;
             while(curr!=NULL){
                 size++;
                 curr=curr->next;
             }
-        //cout<<size<<" "<<n<<endl;
-        // if(size==n){
-        //     head=head->next;
-        // }
-        int v=size-n;
+       
+        ListNode* prev=head;
         curr=head;
-        ListNode* temp=head;
-        int currpos=1;
-        while(currpos<v){
-            temp=temp->next;
-            currpos++;
+         if(size==n){
+            return prev->next;
         }
-        ListNode* prev=temp->next;
-        temp->next=temp->next->next;
-        delete(prev);
-    }
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        if(head==NULL){
-            return head;
+        int count=0;
+        while(count<n){
+            count++;
+            curr=curr->next;
         }
-
-        del(head,n);
-
+        while(curr->next!=NULL){
+            curr=curr->next;
+            prev=prev->next;
+        }
+        prev->next=prev->next->next;
         return head;
 
     }
